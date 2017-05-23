@@ -15,11 +15,16 @@ defmodule ExtremeSystem.Example.Users.Mixfile do
   end
 
   def application do
-    # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
+    [
+      mod:                {ExtremeSystem.Example.Users, []},
+      applications:       [:extreme_system],
+      extra_applications: [:logger]
+    ]
   end
 
   defp deps do
-    []
+    [
+      {:extreme_system, path: "~/elixir/extreme_system"},
+    ]
   end
 end

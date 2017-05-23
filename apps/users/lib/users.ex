@@ -1,18 +1,20 @@
 defmodule ExtremeSystem.Example.Users do
-  @moduledoc """
-  Documentation for ExtremeSystem.Example.Users.
-  """
+  alias   ExtremeSystem.Example, as: Ex
+  alias   Extreme.System,        as: ExSys
+  use     ExSys.Application
 
-  @doc """
-  Hello world.
+  @request_sup TempTask
 
-  ## Examples
+  def _start do
+    import Supervisor.Spec, warn: false
 
-      iex> ExtremeSystem.Example.Users.hello
-      :world
+    #extreme_settings = Application.get_env :users, :extreme
 
-  """
-  def hello do
-    :world
+    children = [
+      supervisor( Task.Supervisor,  [[name: @request_sup]]),
+      worker(     Ex.Facade,        [@request_sup, [name: {:global, Example.UsersFacade}]]),
+    ]
+
+    {:ok, children: children, name: __MODULE__}
   end
 end
