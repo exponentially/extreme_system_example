@@ -3,8 +3,5 @@ defmodule ExtremeSystem.Example.Facade do
 
   alias   ExtremeSystem.Example.MessageHandlers, as: MsgHandler
 
-  def on_init, 
-    do: Process.register(self(), __MODULE__)
-
-  route :new, MsgHandler.Users
+  route   :new, MsgHandler.Users
 end
