@@ -28,6 +28,7 @@ defmodule ExtremeSystem.Example.Api.Web do
 
       import ExtremeSystem.Example.Api.Router.Helpers
       import ExtremeSystem.Example.Api.Gettext
+      import ExtremeSystem.Example.Api.Helpers.ProxyHelper
     end
   end
 

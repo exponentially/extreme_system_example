@@ -1,5 +1,5 @@
 :source $HOME/.vimrc_elixir
-map <leader>x :w\|:!iex --sname example_api -S mix phoenix.server<CR>
+map <leader>x :w\|:!iex --sname example_api -S mix phx.server<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SWITCH BETWEEN TEST AND PRODUCTION CODE
