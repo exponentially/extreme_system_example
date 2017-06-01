@@ -2,6 +2,8 @@ defmodule ExtremeSystem.Example.Api.Helpers.ResponseHelper do
   use     ExtremeSystem.Example.Api.Web, :controller
   require Logger
 
+  @aggregate_ver_header "x-aggregate-version"
+
   def respond_on({:error, :facade_unavailable}, conn), do: send_resp(conn, 503, "")
   def respond_on(:ok, conn), do: send_resp(conn, 204, "")
   def respond_on({:ok, %{}=response}, conn) do
@@ -20,18 +22,21 @@ defmodule ExtremeSystem.Example.Api.Helpers.ResponseHelper do
     |> put_resp_content_type("application/json")
     |> text(json)
   end
-  def respond_on({:ok, new_version}, conn) do
+  def respond_on({:ok, ver}, conn) do
     conn
-    |> put_status(200)
-    |> json(%{new_version: new_version})
+    |> put_resp_header(@aggregate_ver_header, ver |> to_string)
+    |> put_status(204)
+    |> json("")
   end
-  def respond_on({:created, payload}, conn) when is_map(payload) do
+  def respond_on({:created, payload, ver}, conn) when is_map(payload) do
     conn
+    |> put_resp_header(@aggregate_ver_header, ver |> to_string)
     |> put_status(201)
     |> json(payload)
   end
-  def respond_on({:created, id}, conn) do
+  def respond_on({:created, id, ver}, conn) do
     conn
+    |> put_resp_header(@aggregate_ver_header, ver |> to_string)
     |> put_status(201)
     |> json(%{id: id})
   end
