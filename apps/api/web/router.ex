@@ -9,6 +9,7 @@ defmodule ExtremeSystem.Example.Api.Router do
   scope "/", ExtremeSystem.Example.Api do
     pipe_through :api
 
-    post   "/users", UsersController, :create
+    post   "/users",     UsersController, :create
+    put    "/users/:id", UsersController, :update_profile
   end
 end

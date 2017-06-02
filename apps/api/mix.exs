@@ -29,7 +29,8 @@ defmodule ExtremeSystem.Example.Api.Mixfile do
       {:phoenix, "~> 1.3.0-rc.2"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:extreme_system, path: "~/elixir/extreme_system"},
+      {:extreme_system, "~> 0.0.3"},
+      #{:extreme_system, path: "~/elixir/extreme_system"},
     ]
   end
 end

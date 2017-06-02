@@ -1,11 +1,10 @@
 defmodule ExtremeSystem.Example.Users.Aggregates.User do
   use     Extreme.System.GenAggregate
   alias   ExtremeSystem.Example.Events, as: Event
-  require Logger
 
-  defmodule State do
-    defstruct GenAggregate.state_params ++ [:id]
-  end
+  defmodule State, 
+    do: defstruct GenAggregate.state_params ++ 
+        [:id, :name]
 
 
   ## Client API
@@ -13,36 +12,50 @@ defmodule ExtremeSystem.Example.Users.Aggregates.User do
   def start_link(ttl \\ 2_000, opts \\ []),
     do: GenAggregate.start_link(__MODULE__, ttl, opts)
 
-  def new(server, id, cmd, metadata),
-    do: exec(server, {:new, id, cmd, metadata})
+  def new(server, id, cmd),
+    do: exec(server, {:new, id, cmd})
+
+  def update_profile(server, cmd),
+    do: exec(server, {:update_profile, cmd})
 
 
   ## Server Callbacks
 
-  def init(ttl) do
-    Logger.debug "Spawned User aggregate #{inspect self()}"
-    {:ok, struct(State, initial_state(ttl))}
-  end
+  def init(ttl),
+    do: {:ok, struct(State, initial_state(ttl))}
 
   ### Command handling
 
-  def handle_exec({:new, id, cmd, metadata}, from, state) do
-    Logger.metadata metadata
-    Logger.debug "Registering new user: #{inspect cmd}"
+  def handle_exec({:new, id, cmd}, from, state) do
     events = [
       %Event.User.Created{id: id, email: cmd["email"]},
       %Event.User.ProfileSet{id: id, name: cmd["name"]}
     ]
-    result = {:block, from, {:events, events}, state}
-    Logger.metadata []
-    result
+    {:block, from, {:events, events}, state}
   end
+
+  def handle_exec({:update_profile, %{"id" => id, "name" => name}}, from, %{id: id}=state) when name == "invalid",
+    do: {:noblock, from, {:error, :conflict, "name can't be #{inspect name}"}, state}
+  def handle_exec({:update_profile, %{"id" => id, "name" => name}}, from, %{id: id, name: name}=state),
+    do: {:noblock, from, {:ok, state.version}, state}
+  def handle_exec({:update_profile, %{"id" => id}=cmd}, from, %{id: id}=state) do
+    events = [
+      %Event.User.ProfileSet{id: id, name: cmd["name"]}
+    ]
+    {:block, from, {:events, events}, state}
+  end
+
 
   ### Apply events
 
   defp apply_event(%Event.User.Created{}=event, state) do
     %State{state| 
       id: event.id
+    }
+  end
+  defp apply_event(%Event.User.ProfileSet{}=event, state) do
+    %State{state| 
+      name: event.name
     }
   end
   defp apply_event(_, state), do: state

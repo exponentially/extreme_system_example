@@ -3,5 +3,6 @@ defmodule ExtremeSystem.Example.Users.Facade do
 
   alias   ExtremeSystem.Example.MessageHandlers, as: MsgHandler
 
-  route   :new, MsgHandler.Users
+  route   :new,            MsgHandler.Users
+  route   :update_profile, MsgHandler.Users
 end

@@ -1,0 +1,55 @@
+{
+	"variables": [],
+	"info": {
+		"name": "ExtremeSystem.Example",
+		"_postman_id": "e93f8d2b-6cc0-121f-1626-56de710e7ee5",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "Register user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);",
+									"tests[\"Status code is 201\"] = responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{domain}}/users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user.1@example.com\",\n    \"password\": \"secret\",\n    \"password_confirmation\": \"secret\"\n}"
+						},
+						"description": "User Registration"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

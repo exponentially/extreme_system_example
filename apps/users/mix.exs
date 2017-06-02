@@ -24,7 +24,8 @@ defmodule ExtremeSystem.Example.Users.Mixfile do
 
   defp deps do
     [
-      {:extreme_system, path: "~/elixir/extreme_system"},
+      {:extreme_system, "~> 0.0.3"},
+      #{:extreme_system, path: "~/elixir/extreme_system"},
     ]
   end
 end
