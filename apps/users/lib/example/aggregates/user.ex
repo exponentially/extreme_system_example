@@ -34,6 +34,9 @@ defmodule ExtremeSystem.Example.Users.Aggregates.User do
     {:block, from, {:events, events}, state}
   end
 
+  def handle_exec({_cmd, %{"id" => id, "version" => expected_version}}, from, %{id: id, version: current_version}=state) when expected_version < current_version,
+    do: {:noblock, from, {:error, :wrong_expected_version, current_version, expected_version}, state}
+
   def handle_exec({:update_profile, %{"id" => id, "name" => name}}, from, %{id: id}=state) when name == "invalid",
     do: {:noblock, from, {:error, :conflict, "name can't be #{inspect name}"}, state}
   def handle_exec({:update_profile, %{"id" => id, "name" => name}}, from, %{id: id, name: name}=state),

@@ -70,6 +70,22 @@ defmodule ExtremeSystem.Example.Api.Helpers.ResponseHelper do
     |> put_status(409)
     |> json(%{error: "conflict situation", reason: reason})
   end
+  def respond_on({:error, :wrong_expected_version, -1}, conn) do
+    conn
+    |> put_status(412)
+    |> json(%{error: "duplicate key", reason: "Attempt to register new aggregate with existing key"})
+  end
+  def respond_on({:error, :wrong_expected_version, sent_version}, conn) do
+    conn
+    |> put_status(412)
+    |> json(%{error: "concurrency error", expected_version: sent_version})
+  end
+  def respond_on({:error, :wrong_expected_version, aggregate_version, sent_version}, conn) do
+    conn
+    |> put_resp_header(@aggregate_ver_header, aggregate_version |> to_string)
+    |> put_status(412)
+    |> json(%{error: "concurrency error", aggregate_version: aggregate_version, expected_version: sent_version})
+  end
   def respond_on({:error, :validation, errors}, conn) do
     conn
     |> put_status(422)
