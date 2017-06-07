@@ -1,6 +1,7 @@
 defmodule ExtremeSystem.Example.Users.Aggregates.User do
   use     Extreme.System.GenAggregate
   alias   ExtremeSystem.Example.Events, as: Event
+  import  Ecto.Changeset
 
   defmodule State, 
     do: defstruct GenAggregate.state_params ++ 
@@ -37,8 +38,6 @@ defmodule ExtremeSystem.Example.Users.Aggregates.User do
   def handle_exec({_cmd, %{"id" => id, "version" => expected_version}}, from, %{id: id, version: current_version}=state) when expected_version != current_version,
     do: {:noblock, from, {:error, :wrong_expected_version, current_version, expected_version}, state}
 
-  def handle_exec({:update_profile, %{"id" => id, "name" => name}}, from, %{id: id}=state) when name == "invalid",
-    do: {:noblock, from, {:error, :conflict, "name can't be #{inspect name}"}, state}
   def handle_exec({:update_profile, %{"id" => id, "name" => name}}, from, %{id: id, name: name}=state),
     do: {:noblock, from, {:ok, state.version}, state}
   def handle_exec({:update_profile, %{"id" => id}=cmd}, from, %{id: id}=state) do
@@ -52,10 +51,23 @@ defmodule ExtremeSystem.Example.Users.Aggregates.User do
     do: {:noblock, from, {:error, :conflict, "Can't execute #{inspect cmd} with: #{inspect payload}"}, state}
 
   defp _update_profile(cmd, state) do
-    events = [
-      %Event.User.ProfileSet{id: state.id, name: cmd["name"]}
-    ]
-    {:ok, events}
+    case _validate_profile_update(cmd) do
+      %{valid?: false}=changeset -> {:error, changeset}
+      %{changes: data} ->
+        events = [
+          %Event.User.ProfileSet{id: state.id, name: data.name}
+        ]
+        {:ok, events}
+    end
+  end
+
+  defp _validate_profile_update(cmd) do
+    blank = %{}
+    types = %{name: :string}
+    {blank, types}
+      |> cast(cmd, Map.keys(types))
+      |> validate_required([:name])
+      |> validate_length(:name, min: 6)
   end
 
   ### Apply events
