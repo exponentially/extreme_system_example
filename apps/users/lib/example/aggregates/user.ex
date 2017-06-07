@@ -34,7 +34,7 @@ defmodule ExtremeSystem.Example.Users.Aggregates.User do
     {:block, from, {:events, events}, state}
   end
 
-  def handle_exec({_cmd, %{"id" => id, "version" => expected_version}}, from, %{id: id, version: current_version}=state) when expected_version < current_version,
+  def handle_exec({_cmd, %{"id" => id, "version" => expected_version}}, from, %{id: id, version: current_version}=state) when expected_version != current_version,
     do: {:noblock, from, {:error, :wrong_expected_version, current_version, expected_version}, state}
 
   def handle_exec({:update_profile, %{"id" => id, "name" => name}}, from, %{id: id}=state) when name == "invalid",
@@ -42,12 +42,21 @@ defmodule ExtremeSystem.Example.Users.Aggregates.User do
   def handle_exec({:update_profile, %{"id" => id, "name" => name}}, from, %{id: id, name: name}=state),
     do: {:noblock, from, {:ok, state.version}, state}
   def handle_exec({:update_profile, %{"id" => id}=cmd}, from, %{id: id}=state) do
-    events = [
-      %Event.User.ProfileSet{id: id, name: cmd["name"]}
-    ]
-    {:block, from, {:events, events}, state}
+    case _update_profile(cmd, state) do
+      {:ok, events} -> {:block,   from, {:events, events}, state}
+      other         -> {:noblock, from, other,             state}
+    end
   end
 
+  def handle_exec({cmd, payload}, from, state),
+    do: {:noblock, from, {:error, :conflict, "Can't execute #{inspect cmd} with: #{inspect payload}"}, state}
+
+  defp _update_profile(cmd, state) do
+    events = [
+      %Event.User.ProfileSet{id: state.id, name: cmd["name"]}
+    ]
+    {:ok, events}
+  end
 
   ### Apply events
 

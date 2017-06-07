@@ -17,15 +17,17 @@ defmodule ExtremeSystem.Example.Users.Mixfile do
   def application do
     [
       mod:                {ExtremeSystem.Example.Users, []},
-      applications:       [:extreme_system],
+      applications:       [:extreme_system, :ecto, :gettext],
       extra_applications: [:logger]
     ]
   end
 
   defp deps do
     [
-      {:extreme_system, "~> 0.0.3"},
-      #{:extreme_system, path: "~/elixir/extreme_system"},
+      #{:extreme_system, "~> 0.0.4"},
+      {:extreme_system, path: "~/elixir/extreme_system"},
+      {:ecto, "~> 2.1.4"},
+      {:gettext, "~> 0.13"},
     ]
   end
 end

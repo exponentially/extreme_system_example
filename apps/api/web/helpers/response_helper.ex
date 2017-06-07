@@ -25,8 +25,7 @@ defmodule ExtremeSystem.Example.Api.Helpers.ResponseHelper do
   def respond_on({:ok, ver}, conn) do
     conn
     |> put_resp_header(@aggregate_ver_header, ver |> to_string)
-    |> put_status(204)
-    |> json("")
+    |> send_resp(204, "")
   end
   def respond_on({:created, payload, ver}, conn) when is_map(payload) do
     conn
