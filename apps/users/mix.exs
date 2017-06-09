@@ -28,6 +28,7 @@ defmodule ExtremeSystem.Example.Users.Mixfile do
       {:extreme_system, path: "~/elixir/extreme_system"},
       {:ecto, "~> 2.1.4"},
       {:gettext, "~> 0.13"},
+      {:distillery, "~> 1.4"}
     ]
   end
 end
