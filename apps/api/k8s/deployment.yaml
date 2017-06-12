@@ -19,4 +19,7 @@ spec:
             - name: HOST
               value: "example.com"
             - name: SECRET_KEY_BASE
-              value: "highlysecretkey"
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: secret_key_base
