@@ -10,4 +10,6 @@ config :api, ExtremeSystem.Example.Api.Endpoint,
   pubsub: [name: ExtremeSystem.Example.Api.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :mix_docker, image: "api"
+
 import_config "#{Mix.env}.exs"

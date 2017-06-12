@@ -1,0 +1,8 @@
+FROM elixir:1.4.2
+ENV DEBIAN_FRONTEND=noninteractive
+EXPOSE 8000
+ENV PORT=8000 MIX_ENV=prod REPLACE_OS_VARS=true SHELL=/bin/bash
+WORKDIR /opt/app
+COPY ./api.tar.gz ./
+RUN tar xfz api.tar.gz
+ENTRYPOINT ["bin/api"]
