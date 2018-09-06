@@ -43,5 +43,6 @@ release :api do
   set applications: [
     :runtime_tools
   ]
+  set vm_args: "./vm.args"
 end
 

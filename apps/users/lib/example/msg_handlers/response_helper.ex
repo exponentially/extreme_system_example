@@ -1,4 +1,4 @@
-defmodule ExtremeSystem.Example.MessageHandlers.ResponseHelper do
+defmodule ExtremeSystem.Example.Users.MessageHandlers.ResponseHelper do
   require Logger
 
   @gettext_backend ExtremeSystem.Example.Users.Gettext

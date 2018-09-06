@@ -8,7 +8,7 @@ defmodule ExtremeSystem.Example.Users.Mixfile do
      config_path: "../../config/config.exs",
      deps_path: "../../deps",
      lockfile: "../../mix.lock",
-     elixir: "~> 1.4",
+     elixir: "~> 1.4 or ~> 1.5",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
@@ -24,8 +24,8 @@ defmodule ExtremeSystem.Example.Users.Mixfile do
 
   defp deps do
     [
-      #{:extreme_system, "~> 0.0.4"},
-      {:extreme_system, path: "~/elixir/extreme_system"},
+      {:extreme_system, "~> 0.2.14"},
+      #{:extreme_system, path: "~/elixir/extreme_system"},
       {:ecto, "~> 2.1.4"},
       {:gettext, "~> 0.13"},
       {:distillery, "~> 1.4"}

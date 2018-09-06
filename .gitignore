@@ -22,3 +22,5 @@ erl_crash.dump
 .tool-versions*
 
 rel/**/
+
+*.tar.gz

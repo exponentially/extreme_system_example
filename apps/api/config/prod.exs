@@ -9,4 +9,8 @@ config :api, ExtremeSystem.Example.Api.Endpoint,
   #cache_static_manifest: "priv/static/manifest.json",
   #root: "."
 
-config :logger, level: :info
+config :logger,
+  level: :info,
+  format: "$date $time [$level] $metadata$message\n",
+  metadata: [:pid, :req_id]
+
