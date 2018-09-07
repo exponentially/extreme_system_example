@@ -1,7 +1,9 @@
 use Mix.Config
 
-:ok = System.put_env "LIGHTHOUSE", "lighthouse_1@mystique"
+{:ok, hostname} = :inet.gethostname
+:ok = System.put_env "ExSysApi", "example_api@#{to_string(hostname)}"
+:ok = System.put_env "ExSysUsers", "es_users@#{to_string(hostname)}"
 
 config :extreme_system, :nodes, [
-    "LIGHTHOUSE"
+    "ExSysApi", "ExSysUsers"
   ]

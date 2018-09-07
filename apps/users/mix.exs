@@ -26,11 +26,9 @@ defmodule ExtremeSystem.Example.Users.Mixfile do
 
   defp deps do
     [
-      {:extreme_system, "~> 0.2.14"},
-      # {:extreme_system, path: "~/elixir/extreme_system"},
+      {:extreme_system, "~> 0.2.15"},
       {:ecto, "~> 2.1.4"},
-      {:gettext, "~> 0.13"},
-      {:distillery, "~> 1.4"}
+      {:gettext, "~> 0.13"}
     ]
   end
 end

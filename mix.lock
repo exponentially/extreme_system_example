@@ -1,4 +1,5 @@
-%{"amqp": {:hex, :amqp, "0.3.1", "c22887ff851e57c8012a7b340a9a837ae997ee819079e447222100ef2a1a7735", [:mix], [{:amqp_client, "~> 3.6.14", [hex: :amqp_client, repo: "hexpm", optional: false]}, {:rabbit_common, "~> 3.6.14", [hex: :rabbit_common, repo: "hexpm", optional: false]}, {:recon, "~> 2.3.2", [hex: :recon, repo: "hexpm", optional: false]}], "hexpm"},
+%{
+  "amqp": {:hex, :amqp, "0.3.1", "c22887ff851e57c8012a7b340a9a837ae997ee819079e447222100ef2a1a7735", [:mix], [{:amqp_client, "~> 3.6.14", [hex: :amqp_client, repo: "hexpm", optional: false]}, {:rabbit_common, "~> 3.6.14", [hex: :rabbit_common, repo: "hexpm", optional: false]}, {:recon, "~> 2.3.2", [hex: :recon, repo: "hexpm", optional: false]}], "hexpm"},
   "amqp_client": {:hex, :amqp_client, "3.6.16", "9e61e7a021b850a3092c84b377fd6c0f19ae648e9b4cb7b41c620d4a9a397f3c", [:make, :rebar3], [{:rabbit_common, "3.6.16", [hex: :rabbit_common, repo: "hexpm", optional: false]}], "hexpm"},
   "cachex": {:hex, :cachex, "2.1.0", "fad49b4e78d11c6c314e75bd8c9408f5b78cb065c047442798caed10803ee3be", [:mix], [{:eternal, "~> 1.1", [hex: :eternal, repo: "hexpm", optional: false]}], "hexpm"},
   "certifi": {:hex, :certifi, "2.3.1", "d0f424232390bf47d82da8478022301c561cf6445b5b5fb6a84d49a9e76d2639", [:rebar3], [{:parse_trans, "3.2.0", [hex: :parse_trans, repo: "hexpm", optional: false]}], "hexpm"},
@@ -12,7 +13,7 @@
   "eternal": {:hex, :eternal, "1.2.0", "e2a6b6ce3b8c248f7dc31451aefca57e3bdf0e48d73ae5043229380a67614c41", [:mix], [], "hexpm"},
   "exprotobuf": {:hex, :exprotobuf, "1.2.9", "f3cac1b0d0444da3c72cdfe80e394d721275dc80b1d7703ead9dad9267e93822", [:mix], [{:gpb, "~> 3.24", [hex: :gpb, repo: "hexpm", optional: false]}], "hexpm"},
   "extreme": {:hex, :extreme, "0.13.2", "6b36888fea64b6aa7cc5f678fe09715c162894f251b506d515293e59213ffd13", [:mix], [{:elixir_uuid, "~> 1.2", [hex: :elixir_uuid, repo: "hexpm", optional: false]}, {:exprotobuf, "~> 1.2", [hex: :exprotobuf, repo: "hexpm", optional: false]}, {:httpoison, "~> 1.2", [hex: :httpoison, repo: "hexpm", optional: false]}, {:poison, "~> 2.2 or ~> 3.0 or ~> 4.0", [hex: :poison, repo: "hexpm", optional: false]}], "hexpm"},
-  "extreme_system": {:hex, :extreme_system, "0.2.14", "5f4c8da62362689b5bc96f906e9dd786c47f5c6faa3e886e1138e65d74fc36bb", [:mix], [{:amqp, "~> 0.1.4 or ~> 0.2.2 or ~> 0.3.1", [hex: :amqp, repo: "hexpm", optional: false]}, {:cachex, "~> 2.1", [hex: :cachex, repo: "hexpm", optional: false]}, {:extreme, "~> 0.10", [hex: :extreme, repo: "hexpm", optional: false]}], "hexpm"},
+  "extreme_system": {:hex, :extreme_system, "0.2.15", "a20fc48c6d0ada8e0b06a75572fb76feef12689ae40312c6f6ded693640a3677", [:mix], [{:amqp, "~> 0.1.4 or ~> 0.2.2 or ~> 0.3.1", [hex: :amqp, repo: "hexpm", optional: false]}, {:cachex, "~> 2.1", [hex: :cachex, repo: "hexpm", optional: false]}, {:extreme, "~> 0.10", [hex: :extreme, repo: "hexpm", optional: false]}], "hexpm"},
   "gettext": {:hex, :gettext, "0.16.0", "4a7e90408cef5f1bf57c5a39e2db8c372a906031cc9b1466e963101cb927dafc", [:mix], [], "hexpm"},
   "gpb": {:hex, :gpb, "3.28.1", "6849b2f0004dc4e7644f4f67e7cdd18e893f0ab87eb7ad82b9cb1483ce60eed0", [:make, :rebar], [], "hexpm"},
   "hackney": {:hex, :hackney, "1.13.0", "24edc8cd2b28e1c652593833862435c80661834f6c9344e84b6a2255e7aeef03", [:rebar3], [{:certifi, "2.3.1", [hex: :certifi, repo: "hexpm", optional: false]}, {:idna, "5.1.2", [hex: :idna, repo: "hexpm", optional: false]}, {:metrics, "1.0.1", [hex: :metrics, repo: "hexpm", optional: false]}, {:mimerl, "1.0.2", [hex: :mimerl, repo: "hexpm", optional: false]}, {:ssl_verify_fun, "1.1.1", [hex: :ssl_verify_fun, repo: "hexpm", optional: false]}], "hexpm"},
@@ -33,4 +34,5 @@
   "recon": {:hex, :recon, "2.3.2", "4444c879be323b1b133eec5241cb84bd3821ea194c740d75617e106be4744318", [:rebar3], [], "hexpm"},
   "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.1", "28a4d65b7f59893bc2c7de786dec1e1555bd742d336043fe644ae956c3497fbe", [:make, :rebar], [], "hexpm"},
   "unicode_util_compat": {:hex, :unicode_util_compat, "0.3.1", "a1f612a7b512638634a603c8f401892afbf99b8ce93a45041f8aaca99cadb85e", [:rebar3], [], "hexpm"},
-  "uuid": {:hex, :uuid, "1.1.8", "e22fc04499de0de3ed1116b770c7737779f226ceefa0badb3592e64d5cfb4eb9", [:mix], [], "hexpm"}}
+  "uuid": {:hex, :uuid, "1.1.8", "e22fc04499de0de3ed1116b770c7737779f226ceefa0badb3592e64d5cfb4eb9", [:mix], [], "hexpm"},
+}

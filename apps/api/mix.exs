@@ -37,7 +37,7 @@ defmodule ExtremeSystem.Example.Api.Mixfile do
       {:phoenix, "~> 1.3.0"},
       {:gettext, "~> 0.13"},
       {:cowboy, "~> 1.1"},
-      {:extreme_system, "~> 0.2.14"}
+      {:extreme_system, "~> 0.2.15"}
     ]
   end
 end
