@@ -1,6 +1,6 @@
 defmodule ExtremeSystem.Example.Api do
-  use     Extreme.System.Application
-  #use     Application
+  use Extreme.System.Application
+  # use     Application
 
   #  def start(_, _) do
   #    import Supervisor.Spec
@@ -17,8 +17,9 @@ defmodule ExtremeSystem.Example.Api do
     import Supervisor.Spec
 
     children = [
-      supervisor(ExtremeSystem.Example.Api.Endpoint, []),
+      supervisor(ExtremeSystem.Example.Api.Endpoint, [])
     ]
+
     {:ok, children: children, name: ExtremeSystem.Example.Api.Supervisor}
   end
 

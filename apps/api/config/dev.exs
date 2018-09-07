@@ -13,5 +13,4 @@ config :api, ExtremeSystem.Example.Api.Endpoint,
   check_origin: false,
   watchers: []
 
-
 config :phoenix, :stacktrace_depth, 20

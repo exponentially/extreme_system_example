@@ -1,6 +1,6 @@
 defmodule ExtremeSystem.Example.Users.Aggregates.UserImpl do
-  alias   ExtremeSystem.Example.Events, as: Event
-  import  Ecto.Changeset
+  alias ExtremeSystem.Example.Events, as: Event
+  import Ecto.Changeset
 
   def exec(:new, {id, params}, state) do
     [
@@ -12,10 +12,11 @@ defmodule ExtremeSystem.Example.Users.Aggregates.UserImpl do
 
   def exec(:update_profile, params, state) do
     case _validate_profile_update(params) do
-      %{valid?: false}=changeset ->
+      %{valid?: false} = changeset ->
         {:noblock, {:error, changeset}, state}
+
       %{changes: data} ->
-        [ %Event.User.ProfileSet{id: state.id, name: data.name} ]
+        [%Event.User.ProfileSet{id: state.id, name: data.name}]
         |> _events(state)
     end
   end
@@ -23,10 +24,11 @@ defmodule ExtremeSystem.Example.Users.Aggregates.UserImpl do
   defp _validate_profile_update(params) do
     blank = %{}
     types = %{name: :string}
+
     {blank, types}
-      |> cast(params, Map.keys(types))
-      |> validate_required([:name])
-      |> validate_length(:name, min: 6)
+    |> cast(params, Map.keys(types))
+    |> validate_required([:name])
+    |> validate_length(:name, min: 6)
   end
 
   defp _events(events, state),
